@@ -185,13 +185,7 @@ public class SpringDependencyGraphGenerator {
 
     public static void main(String[] args) {
         SpringDependencyGraphGenerator instance = new SpringDependencyGraphGenerator();
-        String[] l = new String[] {
-                "springconfig/trinity-oneandone-mgmt-legacy-beans.xml",
-                "springconfig/trinity-oneandone-mgmt-legacy-db-beans.xml",
-                "springconfig/trinity-oneandone-mgmt-legacy-jobs-beans.xml",
-                "springconfig/trinity-oneandone-mgmt-legacy-resources-beans.xml",
-        };
-        instance.setLocations(l);
+        instance.setLocations(args);
         instance.setOutfileName("C:/Users/srinke/AbschaltungAltsysteme/1.graphml");
         instance.run();
     }
