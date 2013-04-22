@@ -3,6 +3,7 @@ package scratch.sdg;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -159,12 +160,11 @@ public class SpringDependencyGraphGenerator {
      */
     private String[] locations;
 
-    private String outfileName;
-
     /**
      * map with bean defs.
      */
     LinkedHashMap<String, BeanDefinition> beans = new LinkedHashMap<String, BeanDefinition>();
+    private OutputStream output;
 
     private static class Edge {
         String from;
@@ -188,7 +188,7 @@ public class SpringDependencyGraphGenerator {
     public static void main(String[] args) {
         SpringDependencyGraphGenerator instance = new SpringDependencyGraphGenerator();
         instance.setLocations(args);
-        instance.setOutfileName("C:/Users/srinke/AbschaltungAltsysteme/1.graphml");
+        instance.setOutput(System.out);
         instance.run();
     }
 
@@ -299,7 +299,7 @@ public class SpringDependencyGraphGenerator {
     }
 
     private void renderGraph() throws IOException {
-        PrintStream out = new PrintStream(new File(outfileName));
+        PrintStream out = new PrintStream(this.output, true, "UTF-8");
 
         out.print(intro);
 
@@ -418,22 +418,8 @@ public class SpringDependencyGraphGenerator {
         this.locations = locations;
     }
 
-    /**
-     * Gets the outfile name.
-     *
-     * @return the outfile name
-     */
-    public String getOutfileName() {
-        return outfileName;
-    }
-
-    /**
-     * Sets the outfile name.
-     *
-     * @param outfileName the new outfile name
-     */
-    public void setOutfileName(String outfileName) {
-        this.outfileName = outfileName;
+    public void setOutput(final OutputStream output) {
+        this.output = output;
     }
 
 }
